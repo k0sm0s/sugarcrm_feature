@@ -50,6 +50,46 @@ function sugarcrm_feature_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-sugar_jcrmtime-field_sugar_case_name'
+  $field_instances['node-sugar_jcrmtime-field_sugar_case_name'] = array(
+    'bundle' => 'sugar_jcrmtime',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 6,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_sugar_case_name',
+    'label' => 'sugar_case_name',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
+    ),
+  );
+
   // Exported field_instance: 'node-sugar_jcrmtime-field_sugar_created_by_name'
   $field_instances['node-sugar_jcrmtime-field_sugar_created_by_name'] = array(
     'bundle' => 'sugar_jcrmtime',
@@ -253,6 +293,7 @@ function sugarcrm_feature_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('sugar_case_id');
+  t('sugar_case_name');
   t('sugar_created_by_name');
   t('sugar_date');
   t('sugar_description');

@@ -24,13 +24,67 @@ function sugarcrm_feature_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'SugarJCRMTime';
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    3 => '3',
+    2 => '2',
+  );
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'field_sugar_case_name' => 'field_sugar_case_name',
+    'field_sugar_created_by_name' => 'field_sugar_created_by_name',
+    'field_sugar_date' => 'field_sugar_date',
+    'field_sugar_description' => 'field_sugar_description',
+    'field_sugar_time_length' => 'field_sugar_time_length',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'field_sugar_case_name' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_sugar_created_by_name' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_sugar_date' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_sugar_description' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_sugar_time_length' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  /* Field: Content: sugar_case_name */
+  $handler->display->display_options['fields']['field_sugar_case_name']['id'] = 'field_sugar_case_name';
+  $handler->display->display_options['fields']['field_sugar_case_name']['table'] = 'field_data_field_sugar_case_name';
+  $handler->display->display_options['fields']['field_sugar_case_name']['field'] = 'field_sugar_case_name';
+  $handler->display->display_options['fields']['field_sugar_case_name']['label'] = 'Case';
   /* Field: Content: sugar_created_by_name */
   $handler->display->display_options['fields']['field_sugar_created_by_name']['id'] = 'field_sugar_created_by_name';
   $handler->display->display_options['fields']['field_sugar_created_by_name']['table'] = 'field_data_field_sugar_created_by_name';
@@ -69,6 +123,21 @@ function sugarcrm_feature_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'sugar_jcrmtime' => 'sugar_jcrmtime',
+  );
+  /* Filter criterion: Content: sugar_case_name (field_sugar_case_name) */
+  $handler->display->display_options['filters']['field_sugar_case_name_value']['id'] = 'field_sugar_case_name_value';
+  $handler->display->display_options['filters']['field_sugar_case_name_value']['table'] = 'field_data_field_sugar_case_name';
+  $handler->display->display_options['filters']['field_sugar_case_name_value']['field'] = 'field_sugar_case_name_value';
+  $handler->display->display_options['filters']['field_sugar_case_name_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_sugar_case_name_value']['expose']['operator_id'] = 'field_sugar_case_name_value_op';
+  $handler->display->display_options['filters']['field_sugar_case_name_value']['expose']['label'] = 'Case';
+  $handler->display->display_options['filters']['field_sugar_case_name_value']['expose']['operator'] = 'field_sugar_case_name_value_op';
+  $handler->display->display_options['filters']['field_sugar_case_name_value']['expose']['identifier'] = 'field_sugar_case_name_value';
+  $handler->display->display_options['filters']['field_sugar_case_name_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
   );
 
   /* Display: Page */
