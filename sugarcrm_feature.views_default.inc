@@ -128,6 +128,7 @@ function sugarcrm_feature_views_default_views() {
   $handler->display->display_options['filters']['field_sugar_case_name_value']['id'] = 'field_sugar_case_name_value';
   $handler->display->display_options['filters']['field_sugar_case_name_value']['table'] = 'field_data_field_sugar_case_name';
   $handler->display->display_options['filters']['field_sugar_case_name_value']['field'] = 'field_sugar_case_name_value';
+  $handler->display->display_options['filters']['field_sugar_case_name_value']['operator'] = 'contains';
   $handler->display->display_options['filters']['field_sugar_case_name_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_sugar_case_name_value']['expose']['operator_id'] = 'field_sugar_case_name_value_op';
   $handler->display->display_options['filters']['field_sugar_case_name_value']['expose']['label'] = 'Case';
