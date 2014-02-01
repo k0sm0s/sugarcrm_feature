@@ -124,11 +124,13 @@ function sugarcrm_feature_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'sugar_jcrmtime' => 'sugar_jcrmtime',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: sugar_case_name (field_sugar_case_name) */
   $handler->display->display_options['filters']['field_sugar_case_name_value']['id'] = 'field_sugar_case_name_value';
   $handler->display->display_options['filters']['field_sugar_case_name_value']['table'] = 'field_data_field_sugar_case_name';
   $handler->display->display_options['filters']['field_sugar_case_name_value']['field'] = 'field_sugar_case_name_value';
   $handler->display->display_options['filters']['field_sugar_case_name_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_sugar_case_name_value']['group'] = 1;
   $handler->display->display_options['filters']['field_sugar_case_name_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_sugar_case_name_value']['expose']['operator_id'] = 'field_sugar_case_name_value_op';
   $handler->display->display_options['filters']['field_sugar_case_name_value']['expose']['label'] = 'Case';
@@ -139,6 +141,31 @@ function sugarcrm_feature_views_default_views() {
     1 => 0,
     3 => 0,
     4 => 0,
+  );
+  /* Filter criterion: Content: sugar_date (field_sugar_date) */
+  $handler->display->display_options['filters']['field_sugar_date_value']['id'] = 'field_sugar_date_value';
+  $handler->display->display_options['filters']['field_sugar_date_value']['table'] = 'field_data_field_sugar_date';
+  $handler->display->display_options['filters']['field_sugar_date_value']['field'] = 'field_sugar_date_value';
+  $handler->display->display_options['filters']['field_sugar_date_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_sugar_date_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_sugar_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_sugar_date_value']['expose']['operator_id'] = 'field_sugar_date_value_op';
+  $handler->display->display_options['filters']['field_sugar_date_value']['expose']['label'] = 'Date';
+  $handler->display->display_options['filters']['field_sugar_date_value']['expose']['operator'] = 'field_sugar_date_value_op';
+  $handler->display->display_options['filters']['field_sugar_date_value']['expose']['identifier'] = 'field_sugar_date_value';
+  $handler->display->display_options['filters']['field_sugar_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_sugar_date_value']['group_info']['label'] = 'sugar_date (field_sugar_date)';
+  $handler->display->display_options['filters']['field_sugar_date_value']['group_info']['identifier'] = 'field_sugar_date_value';
+  $handler->display->display_options['filters']['field_sugar_date_value']['group_info']['remember'] = FALSE;
+  $handler->display->display_options['filters']['field_sugar_date_value']['group_info']['group_items'] = array(
+    1 => array(),
+    2 => array(),
+    3 => array(),
   );
 
   /* Display: Page */
