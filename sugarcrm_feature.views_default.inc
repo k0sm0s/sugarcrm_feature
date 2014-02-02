@@ -146,8 +146,7 @@ function sugarcrm_feature_views_default_views() {
   $handler->display->display_options['filters']['field_sugar_date_value']['id'] = 'field_sugar_date_value';
   $handler->display->display_options['filters']['field_sugar_date_value']['table'] = 'field_data_field_sugar_date';
   $handler->display->display_options['filters']['field_sugar_date_value']['field'] = 'field_sugar_date_value';
-  $handler->display->display_options['filters']['field_sugar_date_value']['operator'] = 'contains';
-  $handler->display->display_options['filters']['field_sugar_date_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_sugar_date_value']['operator'] = 'between';
   $handler->display->display_options['filters']['field_sugar_date_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_sugar_date_value']['expose']['operator_id'] = 'field_sugar_date_value_op';
   $handler->display->display_options['filters']['field_sugar_date_value']['expose']['label'] = 'Date';
@@ -159,14 +158,7 @@ function sugarcrm_feature_views_default_views() {
     3 => 0,
     4 => 0,
   );
-  $handler->display->display_options['filters']['field_sugar_date_value']['group_info']['label'] = 'sugar_date (field_sugar_date)';
-  $handler->display->display_options['filters']['field_sugar_date_value']['group_info']['identifier'] = 'field_sugar_date_value';
-  $handler->display->display_options['filters']['field_sugar_date_value']['group_info']['remember'] = FALSE;
-  $handler->display->display_options['filters']['field_sugar_date_value']['group_info']['group_items'] = array(
-    1 => array(),
-    2 => array(),
-    3 => array(),
-  );
+  $handler->display->display_options['filters']['field_sugar_date_value']['form_type'] = 'date_popup';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');

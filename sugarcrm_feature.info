@@ -4,6 +4,7 @@ core = 7.x
 package = Features
 version = 7.x-1.0
 project = sugarcrm_feature
+dependencies[] = date
 dependencies[] = features
 dependencies[] = text
 dependencies[] = views
