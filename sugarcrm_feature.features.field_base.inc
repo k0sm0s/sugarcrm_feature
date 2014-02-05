@@ -10,6 +10,29 @@
 function sugarcrm_feature_field_default_field_bases() {
   $field_bases = array();
 
+  // Exported field_base: 'field_allowed_cases'
+  $field_bases['field_allowed_cases'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_allowed_cases',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
   // Exported field_base: 'field_sugar_case_id'
   $field_bases['field_sugar_case_id'] = array(
     'active' => 1,

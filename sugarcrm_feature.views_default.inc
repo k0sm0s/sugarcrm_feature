@@ -120,6 +120,37 @@ function sugarcrm_feature_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'sugarcrm_case' => 'sugarcrm_case',
   );
+  /* Filter criterion: Content: sugar_name (field_sugar_name) */
+  $handler->display->display_options['filters']['field_sugar_name_value']['id'] = 'field_sugar_name_value';
+  $handler->display->display_options['filters']['field_sugar_name_value']['table'] = 'field_data_field_sugar_name';
+  $handler->display->display_options['filters']['field_sugar_name_value']['field'] = 'field_sugar_name_value';
+  $handler->display->display_options['filters']['field_sugar_name_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_sugar_name_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_sugar_name_value']['expose']['operator_id'] = 'field_sugar_name_value_op';
+  $handler->display->display_options['filters']['field_sugar_name_value']['expose']['label'] = 'Case';
+  $handler->display->display_options['filters']['field_sugar_name_value']['expose']['operator'] = 'field_sugar_name_value_op';
+  $handler->display->display_options['filters']['field_sugar_name_value']['expose']['identifier'] = 'field_sugar_name_value';
+  $handler->display->display_options['filters']['field_sugar_name_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  /* Filter criterion: Global: PHP */
+  $handler->display->display_options['filters']['php']['id'] = 'php';
+  $handler->display->display_options['filters']['php']['table'] = 'views';
+  $handler->display->display_options['filters']['php']['field'] = 'php';
+  $handler->display->display_options['filters']['php']['use_php_setup'] = 0;
+  $handler->display->display_options['filters']['php']['php_filter'] = 'global $user;
+$user = user_load($user->uid);
+$node = node_load($row->field_sugar_id);
+if(in_array(\'administrator\', array_values($user->roles))) {return false;}
+else{
+   foreach($user->field_allowed_cases[\'und\'] as $c){
+      if($c[\'value\'] == $node->field_sugar_id[\'und\'][0][\'value\']) return false;
+   }
+}
+return true;';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');

@@ -503,8 +503,40 @@ function sugarcrm_feature_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_allowed_cases'
+  $field_instances['user-user-field_allowed_cases'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 8,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_allowed_cases',
+    'label' => 'Allowed cases',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 8,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
+  t('Allowed cases');
   t('sugar_case_id');
   t('sugar_case_name');
   t('sugar_created_by_name');
