@@ -72,6 +72,10 @@ function sugarcrm_feature_views_default_views() {
       'empty_column' => 0,
     ),
   );
+  /* Relationship: Entity Reference: Referencing entity */
+  $handler->display->display_options['relationships']['reverse_field_allowed_cases_user']['id'] = 'reverse_field_allowed_cases_user';
+  $handler->display->display_options['relationships']['reverse_field_allowed_cases_user']['table'] = 'node';
+  $handler->display->display_options['relationships']['reverse_field_allowed_cases_user']['field'] = 'reverse_field_allowed_cases_user';
   /* Field: Content: sugar_id */
   $handler->display->display_options['fields']['field_sugar_id']['id'] = 'field_sugar_id';
   $handler->display->display_options['fields']['field_sugar_id']['table'] = 'field_data_field_sugar_id';
@@ -120,11 +124,13 @@ function sugarcrm_feature_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'sugarcrm_case' => 'sugarcrm_case',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: sugar_name (field_sugar_name) */
   $handler->display->display_options['filters']['field_sugar_name_value']['id'] = 'field_sugar_name_value';
   $handler->display->display_options['filters']['field_sugar_name_value']['table'] = 'field_data_field_sugar_name';
   $handler->display->display_options['filters']['field_sugar_name_value']['field'] = 'field_sugar_name_value';
   $handler->display->display_options['filters']['field_sugar_name_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_sugar_name_value']['group'] = 1;
   $handler->display->display_options['filters']['field_sugar_name_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_sugar_name_value']['expose']['operator_id'] = 'field_sugar_name_value_op';
   $handler->display->display_options['filters']['field_sugar_name_value']['expose']['label'] = 'Case';
@@ -136,21 +142,12 @@ function sugarcrm_feature_views_default_views() {
     3 => 0,
     4 => 0,
   );
-  /* Filter criterion: Global: PHP */
-  $handler->display->display_options['filters']['php']['id'] = 'php';
-  $handler->display->display_options['filters']['php']['table'] = 'views';
-  $handler->display->display_options['filters']['php']['field'] = 'php';
-  $handler->display->display_options['filters']['php']['use_php_setup'] = 0;
-  $handler->display->display_options['filters']['php']['php_filter'] = 'global $user;
-$user = user_load($user->uid);
-$node = node_load($row->field_sugar_id);
-if(in_array(\'administrator\', array_values($user->roles))) {return false;}
-else{
-   foreach($user->field_allowed_cases[\'und\'] as $c){
-      if($c[\'value\'] == $node->field_sugar_id[\'und\'][0][\'value\']) return false;
-   }
-}
-return true;';
+  /* Filter criterion: User: Current */
+  $handler->display->display_options['filters']['uid_current']['id'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['table'] = 'users';
+  $handler->display->display_options['filters']['uid_current']['field'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['relationship'] = 'reverse_field_allowed_cases_user';
+  $handler->display->display_options['filters']['uid_current']['value'] = '1';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -227,6 +224,10 @@ return true;';
       'empty_column' => 0,
     ),
   );
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_sugar_case_target_id']['id'] = 'field_sugar_case_target_id';
+  $handler->display->display_options['relationships']['field_sugar_case_target_id']['table'] = 'field_data_field_sugar_case';
+  $handler->display->display_options['relationships']['field_sugar_case_target_id']['field'] = 'field_sugar_case_target_id';
   /* Field: Content: sugar_case_name */
   $handler->display->display_options['fields']['field_sugar_case_name']['id'] = 'field_sugar_case_name';
   $handler->display->display_options['fields']['field_sugar_case_name']['table'] = 'field_data_field_sugar_case_name';
@@ -303,6 +304,7 @@ return true;';
   $handler->display->display_options['filters']['field_sugar_date_value']['table'] = 'field_data_field_sugar_date';
   $handler->display->display_options['filters']['field_sugar_date_value']['field'] = 'field_sugar_date_value';
   $handler->display->display_options['filters']['field_sugar_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_sugar_date_value']['group'] = 1;
   $handler->display->display_options['filters']['field_sugar_date_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_sugar_date_value']['expose']['operator_id'] = 'field_sugar_date_value_op';
   $handler->display->display_options['filters']['field_sugar_date_value']['expose']['label'] = 'Date';

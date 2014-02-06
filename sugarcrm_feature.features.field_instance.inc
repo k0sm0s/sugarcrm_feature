@@ -10,6 +10,49 @@
 function sugarcrm_feature_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-sugar_jcrmtime-field_sugar_case'
+  $field_instances['node-sugar_jcrmtime-field_sugar_case'] = array(
+    'bundle' => 'sugar_jcrmtime',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 8,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_sugar_case',
+    'label' => 'sugar_case',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'node-sugar_jcrmtime-field_sugar_case_id'
   $field_instances['node-sugar_jcrmtime-field_sugar_case_id'] = array(
     'bundle' => 'sugar_jcrmtime',
@@ -512,9 +555,11 @@ function sugarcrm_feature_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
         'weight' => 8,
       ),
     ),
@@ -527,9 +572,13 @@ function sugarcrm_feature_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
       'weight' => 8,
     ),
   );
@@ -537,6 +586,7 @@ function sugarcrm_feature_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Allowed cases');
+  t('sugar_case');
   t('sugar_case_id');
   t('sugar_case_name');
   t('sugar_created_by_name');
