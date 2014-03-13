@@ -72,22 +72,28 @@ function sugarcrm_feature_views_default_views() {
       'empty_column' => 0,
     ),
   );
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_sugarcrm_account_target_id']['id'] = 'field_sugarcrm_account_target_id';
+  $handler->display->display_options['relationships']['field_sugarcrm_account_target_id']['table'] = 'field_data_field_sugarcrm_account';
+  $handler->display->display_options['relationships']['field_sugarcrm_account_target_id']['field'] = 'field_sugarcrm_account_target_id';
   /* Relationship: Entity Reference: Referencing entity */
-  $handler->display->display_options['relationships']['reverse_field_allowed_cases_user']['id'] = 'reverse_field_allowed_cases_user';
-  $handler->display->display_options['relationships']['reverse_field_allowed_cases_user']['table'] = 'node';
-  $handler->display->display_options['relationships']['reverse_field_allowed_cases_user']['field'] = 'reverse_field_allowed_cases_user';
-  /* Field: Content: Nid */
-  $handler->display->display_options['fields']['nid']['id'] = 'nid';
-  $handler->display->display_options['fields']['nid']['table'] = 'node';
-  $handler->display->display_options['fields']['nid']['field'] = 'nid';
-  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  $handler->display->display_options['relationships']['reverse_field_sugarcrm_account_user']['id'] = 'reverse_field_sugarcrm_account_user';
+  $handler->display->display_options['relationships']['reverse_field_sugarcrm_account_user']['table'] = 'node';
+  $handler->display->display_options['relationships']['reverse_field_sugarcrm_account_user']['field'] = 'reverse_field_sugarcrm_account_user';
+  $handler->display->display_options['relationships']['reverse_field_sugarcrm_account_user']['relationship'] = 'field_sugarcrm_account_target_id';
+  /* Field: Content: sugar_id */
+  $handler->display->display_options['fields']['field_sugar_id']['id'] = 'field_sugar_id';
+  $handler->display->display_options['fields']['field_sugar_id']['table'] = 'field_data_field_sugar_id';
+  $handler->display->display_options['fields']['field_sugar_id']['field'] = 'field_sugar_id';
+  $handler->display->display_options['fields']['field_sugar_id']['label'] = 'Id';
+  $handler->display->display_options['fields']['field_sugar_id']['exclude'] = TRUE;
   /* Field: Content: sugar_name */
   $handler->display->display_options['fields']['field_sugar_name']['id'] = 'field_sugar_name';
   $handler->display->display_options['fields']['field_sugar_name']['table'] = 'field_data_field_sugar_name';
   $handler->display->display_options['fields']['field_sugar_name']['field'] = 'field_sugar_name';
   $handler->display->display_options['fields']['field_sugar_name']['label'] = 'Case';
   $handler->display->display_options['fields']['field_sugar_name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['field_sugar_name']['alter']['path'] = 'sugarjcrmtime/[nid]';
+  $handler->display->display_options['fields']['field_sugar_name']['alter']['path'] = 'sugarjcrmtime/[field_sugar_id]';
   $handler->display->display_options['fields']['field_sugar_name']['alter']['absolute'] = TRUE;
   /* Field: Content: sugar_max_hours_c */
   $handler->display->display_options['fields']['field_sugar_max_hours_c']['id'] = 'field_sugar_max_hours_c';
@@ -145,7 +151,7 @@ function sugarcrm_feature_views_default_views() {
   $handler->display->display_options['filters']['uid_current']['id'] = 'uid_current';
   $handler->display->display_options['filters']['uid_current']['table'] = 'users';
   $handler->display->display_options['filters']['uid_current']['field'] = 'uid_current';
-  $handler->display->display_options['filters']['uid_current']['relationship'] = 'reverse_field_allowed_cases_user';
+  $handler->display->display_options['filters']['uid_current']['relationship'] = 'reverse_field_sugarcrm_account_user';
   $handler->display->display_options['filters']['uid_current']['value'] = '1';
 
   /* Display: Page */
@@ -167,8 +173,9 @@ function sugarcrm_feature_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
-    t('User referencing Content from field_allowed_cases'),
-    t('Nid'),
+    t('Content entity referenced from field_sugarcrm_account'),
+    t('User referencing Content from field_sugarcrm_account'),
+    t('Id'),
     t('Case'),
     t('Max hours'),
     t('Reg. hours'),
@@ -281,17 +288,15 @@ function sugarcrm_feature_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: Content: Nid */
-  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['table'] = 'node';
-  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['relationship'] = 'field_sugar_case_target_id';
-  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'raw';
-  $handler->display->display_options['arguments']['nid']['default_argument_options']['index'] = '1';
-  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  /* Contextual filter: Content: sugar_case_id (field_sugar_case_id) */
+  $handler->display->display_options['arguments']['field_sugar_case_id_value']['id'] = 'field_sugar_case_id_value';
+  $handler->display->display_options['arguments']['field_sugar_case_id_value']['table'] = 'field_data_field_sugar_case_id';
+  $handler->display->display_options['arguments']['field_sugar_case_id_value']['field'] = 'field_sugar_case_id_value';
+  $handler->display->display_options['arguments']['field_sugar_case_id_value']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_sugar_case_id_value']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_sugar_case_id_value']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_sugar_case_id_value']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_sugar_case_id_value']['limit'] = '0';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -342,10 +347,15 @@ function sugarcrm_feature_views_default_views() {
     4 => 0,
   );
   $handler->display->display_options['filters']['field_sugar_date_value']['form_type'] = 'date_popup';
+  /* Filter criterion: Content: sugar_case (field_sugar_case) */
+  $handler->display->display_options['filters']['field_sugar_case_target_id']['id'] = 'field_sugar_case_target_id';
+  $handler->display->display_options['filters']['field_sugar_case_target_id']['table'] = 'field_data_field_sugar_case';
+  $handler->display->display_options['filters']['field_sugar_case_target_id']['field'] = 'field_sugar_case_target_id';
+  $handler->display->display_options['filters']['field_sugar_case_target_id']['relationship'] = 'field_sugar_case_target_id';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'sugarjcrmtime/%';
+  $handler->display->display_options['path'] = 'sugarjcrmtime';
   $translatables['sugarjcrmtime'] = array(
     t('Master'),
     t('SugarJCRMTime'),
