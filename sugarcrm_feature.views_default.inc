@@ -72,15 +72,6 @@ function sugarcrm_feature_views_default_views() {
       'empty_column' => 0,
     ),
   );
-  /* Relationship: Entity Reference: Referenced Entity */
-  $handler->display->display_options['relationships']['field_sugarcrm_account_target_id']['id'] = 'field_sugarcrm_account_target_id';
-  $handler->display->display_options['relationships']['field_sugarcrm_account_target_id']['table'] = 'field_data_field_sugarcrm_account';
-  $handler->display->display_options['relationships']['field_sugarcrm_account_target_id']['field'] = 'field_sugarcrm_account_target_id';
-  /* Relationship: Entity Reference: Referencing entity */
-  $handler->display->display_options['relationships']['reverse_field_sugarcrm_account_user']['id'] = 'reverse_field_sugarcrm_account_user';
-  $handler->display->display_options['relationships']['reverse_field_sugarcrm_account_user']['table'] = 'node';
-  $handler->display->display_options['relationships']['reverse_field_sugarcrm_account_user']['field'] = 'reverse_field_sugarcrm_account_user';
-  $handler->display->display_options['relationships']['reverse_field_sugarcrm_account_user']['relationship'] = 'field_sugarcrm_account_target_id';
   /* Field: Content: sugar_id */
   $handler->display->display_options['fields']['field_sugar_id']['id'] = 'field_sugar_id';
   $handler->display->display_options['fields']['field_sugar_id']['table'] = 'field_data_field_sugar_id';
@@ -147,12 +138,27 @@ function sugarcrm_feature_views_default_views() {
     3 => 0,
     4 => 0,
   );
-  /* Filter criterion: User: Current */
-  $handler->display->display_options['filters']['uid_current']['id'] = 'uid_current';
-  $handler->display->display_options['filters']['uid_current']['table'] = 'users';
-  $handler->display->display_options['filters']['uid_current']['field'] = 'uid_current';
-  $handler->display->display_options['filters']['uid_current']['relationship'] = 'reverse_field_sugarcrm_account_user';
-  $handler->display->display_options['filters']['uid_current']['value'] = '1';
+  /* Filter criterion: Global: PHP */
+  $handler->display->display_options['filters']['php']['id'] = 'php';
+  $handler->display->display_options['filters']['php']['table'] = 'views';
+  $handler->display->display_options['filters']['php']['field'] = 'php';
+  $handler->display->display_options['filters']['php']['use_php_setup'] = 0;
+  $handler->display->display_options['filters']['php']['php_filter'] = 'global $user;
+if (in_array(\'administrator\', array_values($user->roles))) {
+     return false;
+  }else{
+
+$user = user_load($user->uid);
+$sugaraccounts = $user->field_sugarcrm_account[\'und\'];
+foreach($sugaraccounts as $account){
+    $accnode = node_load($account[\'target_id\']);
+    $allowedcases = $accnode->field_sugar_account_cases[\'und\'];
+    foreach($allowedcases as $case){
+        if($case[\'target_id\'] == $row->field_sugar_id) return false;
+    }
+    return true;
+}
+}';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -173,8 +179,6 @@ function sugarcrm_feature_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
-    t('Content entity referenced from field_sugarcrm_account'),
-    t('User referencing Content from field_sugarcrm_account'),
     t('Id'),
     t('Case'),
     t('Max hours'),
