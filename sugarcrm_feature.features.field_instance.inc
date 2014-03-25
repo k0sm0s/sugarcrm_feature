@@ -709,8 +709,8 @@ function sugarcrm_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_allowed_cases'
-  $field_instances['user-user-field_allowed_cases'] = array(
+  // Exported field_instance: 'user-user-field_excluded_cases'
+  $field_instances['user-user-field_excluded_cases'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
     'deleted' => 0,
@@ -723,12 +723,12 @@ function sugarcrm_feature_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 8,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'user',
-    'field_name' => 'field_allowed_cases',
-    'label' => 'Allowed cases',
+    'field_name' => 'field_excluded_cases',
+    'label' => 'Excluded cases',
     'required' => 0,
     'settings' => array(
       'user_register_form' => 0,
@@ -742,7 +742,7 @@ function sugarcrm_feature_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 8,
+      'weight' => 10,
     ),
   );
 
@@ -785,7 +785,7 @@ function sugarcrm_feature_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Allowed cases');
+  t('Excluded cases');
   t('Sugarcrm account');
   t('sugar_account_cases');
   t('sugar_account_id');
