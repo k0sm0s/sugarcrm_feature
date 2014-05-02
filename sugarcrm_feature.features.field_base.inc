@@ -17,6 +17,9 @@ function sugarcrm_feature_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_excluded_cases',
+    'field_permissions' => array(
+      'type' => 2,
+    ),
     'foreign keys' => array(
       'node' => array(
         'columns' => array(
@@ -551,6 +554,9 @@ function sugarcrm_feature_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_sugarcrm_account',
+    'field_permissions' => array(
+      'type' => 2,
+    ),
     'foreign keys' => array(
       'node' => array(
         'columns' => array(

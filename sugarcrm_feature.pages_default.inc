@@ -17,7 +17,7 @@ function sugarcrm_feature_default_page_manager_handlers() {
   $handler->task = 'user_edit';
   $handler->subtask = '';
   $handler->handler = 'panel_context';
-  $handler->weight = 0;
+  $handler->weight = -29;
   $handler->conf = array(
     'title' => 'sugarcrm user cases',
     'no_blocks' => 0,
@@ -36,6 +36,19 @@ function sugarcrm_feature_default_page_manager_handlers() {
         'context' => 'argument_user_edit_1',
         'id' => 1,
       ),
+    ),
+    'access' => array(
+      'plugins' => array(
+        0 => array(
+          'name' => 'context_exists',
+          'settings' => array(
+            'exists' => '1',
+          ),
+          'context' => 'relationship_entity_from_field:field_sugarcrm_account-user-node_1',
+          'not' => FALSE,
+        ),
+      ),
+      'logic' => 'and',
     ),
   );
   $display = new panels_display();

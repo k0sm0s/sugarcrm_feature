@@ -72,6 +72,13 @@ function sugarcrm_feature_views_default_views() {
       'empty_column' => 0,
     ),
   );
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
   /* Field: Content: sugar_id */
   $handler->display->display_options['fields']['field_sugar_id']['id'] = 'field_sugar_id';
   $handler->display->display_options['fields']['field_sugar_id']['table'] = 'field_data_field_sugar_id';
@@ -84,7 +91,7 @@ function sugarcrm_feature_views_default_views() {
   $handler->display->display_options['fields']['field_sugar_name']['field'] = 'field_sugar_name';
   $handler->display->display_options['fields']['field_sugar_name']['label'] = 'Case';
   $handler->display->display_options['fields']['field_sugar_name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['field_sugar_name']['alter']['path'] = 'sugarjcrmtime/[field_sugar_id]';
+  $handler->display->display_options['fields']['field_sugar_name']['alter']['path'] = 'sugarjcrmtime/[nid]';
   $handler->display->display_options['fields']['field_sugar_name']['alter']['absolute'] = TRUE;
   /* Field: Content: sugar_max_hours_c */
   $handler->display->display_options['fields']['field_sugar_max_hours_c']['id'] = 'field_sugar_max_hours_c';
@@ -150,21 +157,26 @@ if (in_array(\'administrator\', array_values($user->roles))) {
 {
 
 $user = user_load($user->uid);
-$sugaraccounts = $user->field_sugarcrm_account[\'und\'];
-foreach($sugaraccounts as $account){
-    $accnode = node_load($account[\'target_id\']);
-    $allowedcases = $accnode->field_sugar_account_cases[\'und\'];
-    foreach($allowedcases as $case){
-        if($case[\'target_id\'] == $row->field_sugar_id) {
-            //check if excluded
-            foreach($user->field_excluded_cases[\'und\'] as $excludedcase){
-                if($excludedcase[\'target_id\'] == $case[\'target_id\']) return true;
+if($user->field_sugarcrm_account){
+    $sugaraccounts = $user->field_sugarcrm_account[\'und\'];
+    foreach($sugaraccounts as $account){
+        $accnode = node_load($account[\'target_id\']);
+        $allowedcases = $accnode->field_sugar_account_cases[\'und\'];
+        foreach($allowedcases as $case){
+            if($case[\'target_id\'] == $row->field_sugar_id) {
+                //check if excluded
+                if($user->field_excluded_cases)
+                    foreach($user->field_excluded_cases[\'und\'] as $excludedcase){
+                    if($excludedcase[\'target_id\'] == $case[\'target_id\']) return true;
+                }
+                return false;
             }
-            return false;
         }
+        return true;
     }
-    return true;
 }
+else{ return true;}
+
 }';
 
   /* Display: Page */
@@ -214,7 +226,9 @@ foreach($sugaraccounts as $account){
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['hide_empty'] = TRUE;
   /* Field: Content: sugar_account_cases */
   $handler->display->display_options['fields']['field_sugar_account_cases']['id'] = 'field_sugar_account_cases';
   $handler->display->display_options['fields']['field_sugar_account_cases']['table'] = 'field_data_field_sugar_account_cases';
@@ -240,6 +254,7 @@ foreach($sugaraccounts as $account){
   $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['nid']['specify_validation'] = TRUE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -394,15 +409,17 @@ foreach($sugaraccounts as $account){
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: Content: sugar_case_id (field_sugar_case_id) */
-  $handler->display->display_options['arguments']['field_sugar_case_id_value']['id'] = 'field_sugar_case_id_value';
-  $handler->display->display_options['arguments']['field_sugar_case_id_value']['table'] = 'field_data_field_sugar_case_id';
-  $handler->display->display_options['arguments']['field_sugar_case_id_value']['field'] = 'field_sugar_case_id_value';
-  $handler->display->display_options['arguments']['field_sugar_case_id_value']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_sugar_case_id_value']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_sugar_case_id_value']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_sugar_case_id_value']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_sugar_case_id_value']['limit'] = '0';
+  /* Contextual filter: Content: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['relationship'] = 'field_sugar_case_target_id';
+  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'raw';
+  $handler->display->display_options['arguments']['nid']['default_argument_options']['index'] = '1';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -453,15 +470,42 @@ foreach($sugaraccounts as $account){
     4 => 0,
   );
   $handler->display->display_options['filters']['field_sugar_date_value']['form_type'] = 'date_popup';
-  /* Filter criterion: Content: sugar_case (field_sugar_case) */
-  $handler->display->display_options['filters']['field_sugar_case_target_id']['id'] = 'field_sugar_case_target_id';
-  $handler->display->display_options['filters']['field_sugar_case_target_id']['table'] = 'field_data_field_sugar_case';
-  $handler->display->display_options['filters']['field_sugar_case_target_id']['field'] = 'field_sugar_case_target_id';
-  $handler->display->display_options['filters']['field_sugar_case_target_id']['relationship'] = 'field_sugar_case_target_id';
+  /* Filter criterion: Global: PHP */
+  $handler->display->display_options['filters']['php']['id'] = 'php';
+  $handler->display->display_options['filters']['php']['table'] = 'views';
+  $handler->display->display_options['filters']['php']['field'] = 'php';
+  $handler->display->display_options['filters']['php']['use_php_setup'] = 0;
+  $handler->display->display_options['filters']['php']['php_filter'] = 'global $user;
+$user = user_load($user->uid);
+if (in_array(\'administrator\', array_values($user->roles))) {
+     return false;
+}else{
+$node = node_load($row->field_sugar_case_name);
+$user = user_load($user->uid);
+if($user->field_sugarcrm_account){
+$sugaraccounts = $user->field_sugarcrm_account[\'und\'];
+foreach($sugaraccounts as $account){
+    $accnode = node_load($account[\'target_id\']);
+    $allowedcases = $accnode->field_sugar_account_cases[\'und\'];
+    foreach($allowedcases as $case){
+        if($case[\'target_id\'] == $node->field_sugar_case[\'und\'][0][\'target_id\']) {
+            //check if excluded
+if($user->field_excluded_cases)
+            foreach($user->field_excluded_cases[\'und\'] as $excludedcase){
+                if($excludedcase[\'target_id\'] == $case[\'target_id\']) return true;
+            }
+            return false;
+        }
+    }
+    return true;
+}
+}else{return true;}
+
+}';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'sugarjcrmtime';
+  $handler->display->display_options['path'] = 'sugarjcrmtime/%';
   $translatables['sugarjcrmtime'] = array(
     t('Master'),
     t('SugarJCRMTime'),
